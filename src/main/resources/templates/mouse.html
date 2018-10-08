@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<title>鼠标键盘</title>
+
+	<script src="/bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+	
+	<style>
+      .canvas-wrapper {
+        position: relative;
+      }
+      #canvas-1 {
+        background-color: #058;
+        top: 0;
+        left: 0;
+      }
+      .canvas {
+        position: absolute;
+      }
+      .labelcss{
+      	position:relative;
+      	top:30%;
+      	left:5%;
+      	font-size:28px;
+      }
+      .divcss{
+      	width:25%; 
+      	float:left; 
+      	height:100px;
+      }
+    </style>
+
+</head>
+
+<body style="margin:0 0 0 0;">
+
+	<div class="canvas-wrapper">
+		<canvas id="canvas-1" width="1025" height="497" class="canvas"></canvas>
+        <canvas id="canvas-2" width="1025" height="497" class="canvas"></canvas>
+    </div>
+    
+    <div style="position: absolute;top:497px;">
+	    <textarea cols="25" rows="8" id="str" ></textarea>
+    	<img src="/mouse/apple.PNG" height='80' onclick="str()">
+	</div>
+	
+	<div style="position: absolute;top:497px;left:270px;width:70%;">
+		<img src="/mouse/f5.PNG" height='120' onclick="keyboard('f5')">
+		<img src="/mouse/esc.JPG" height='120' onclick="keyboard('esc')">
+		<img src="/mouse/back.PNG" height='120' onclick="keyboard('backspace')">
+		<img src="/mouse/enter.JPG" height='120' onclick="keyboard('enter')">
+	</div>
+	
+	<div style="position: absolute;top:537px;right:25px;">
+		<img id='start' src="/mouse/start.png" height='80' onclick="rec_start()">
+		<img id='stop' src="/mouse/stop.png" height='80' onclick="rec_stop()">
+	</div>
+	
+	<div style="position:absolute;top:700px;width:100%;">
+		<div th:each="b:${playList}" th:style='${b.background}' class='divcss' th:onclick="'play(\'' + ${b.name} + '\')'">
+			 <label class='labelcss' th:text="${b.name}">13a41341</label>
+		</div>	
+		
+		<div style='background:#8B1A1A' class='divcss' onclick="killPlay()">
+			 <label class='labelcss' style='left:35%;'>停止</label>
+		</div>
+	</div>
+	
+	<script th:inline="javascript">
+		var rec = [[${rec}]]; //true表示录制中
+		var host_ip = [[${host_ip}]]; //服务器ip
+	</script>
+	<script src="/r/mouse.js?b0e2"></script>
+	
+</body>
+</html>
